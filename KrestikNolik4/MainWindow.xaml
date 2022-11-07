@@ -5,72 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KrestikNolik4"
         mc:Ignorable="d"
-        Title="Spēle 4 x 4 " Height="580" Width="460">
-    <Window.Resources>
-        <Style x:Key="XnO" TargetType="{x:Type Button}">
+        Title="Spēle 4 x 4 " Height="580" Width="470">
+	<Window.Resources>
+		<Style x:Key="XnO" TargetType="{x:Type Button}">
 
-            <Style.Triggers>
-                <Trigger Property="IsPressed" Value="True">
-                    <!--<Setter Property="Background" Value="LightBlue"/>-->
-                    <Setter Property="Height" Value="100"/>
-                    <Setter Property="Width" Value="100"/>
+			<Style.Triggers>
+				<Trigger Property="IsPressed" Value="True">
+					<!--<Setter Property="Background" Value="LightBlue"/>-->
+					<Setter Property="Height" Value="100"/>
+					<Setter Property="Width" Value="100"/>
 
-                </Trigger>
-            </Style.Triggers>
+				</Trigger>
+			</Style.Triggers>
 
-        </Style>
+		</Style>
 
-    </Window.Resources>
+	</Window.Resources>
 
-    <StackPanel  Height="560" Width="450" >
-        <TextBlock  Name="tbTablo" Height="20" Width="450" Text="Gatavs spēlei" TextAlignment="Center" Background="LightCyan" ></TextBlock>
-        <StackPanel  Orientation="Horizontal" Height="30">
-             <TextBlock                 Margin="5,5,0,5" Height="20" Width="90" Text="  X Skaits: " />
-             <TextBlock  Name="X_Tablo" Margin="0,5,0,5" Height="20" Width="125" Text="0" Background="Beige"/>
-             <TextBlock                 Margin="0,5,0,5" Height="20" Width="90" Text="   0 Skaits: " />
-             <TextBlock  Name="O_Tablo" Margin="5,5,10,5" Height="20" Width="125" Text="0 " Background="Bisque"/>
-        </StackPanel>
-        <Grid  Background="DarkGray" Height="450" Width="450">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
+	<StackPanel  Height="560" Width="450" >
+		<TextBlock  Name="tbTablo" Height="20" Width="450" Text="Gatavs spēlei" TextAlignment="Center" Background="LightCyan" ></TextBlock>
+		<StackPanel  Orientation="Horizontal" Height="30">
+			<TextBlock                 Margin="5,5,0,5" Height="20" Width="90" Text="  X Skaits: " />
+			<TextBlock  Name="X_Tablo" Margin="0,5,0,5" Height="20" Width="125" Text="0" Background="Beige"/>
+			<TextBlock                 Margin="0,5,0,5" Height="20" Width="90" Text="   0 Skaits: " />
+			<TextBlock  Name="O_Tablo" Margin="5,5,10,5" Height="20" Width="125" Text="0 " Background="Bisque"/>
+		</StackPanel>
+		<Grid  Background="DarkGray" Height="450" Width="450">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+				<RowDefinition Height="*"></RowDefinition>
+			</Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
 
-            <Button Name="btn00" Margin="10,10,5,5" Grid.Column="0" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="0"></Button>
-            <Button Name="btn10" Margin="5,10,5,5" Grid.Column="1" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="10"></Button>
-            <Button Name="btn20" Margin="5,10,5,5" Grid.Column="2" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="20"></Button>
-            <Button Name="btn30" Margin="5,10,10,5" Grid.Column="3" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="30"></Button>
-            
-            <Button Name="btn01" Margin="10,5,5,5" Grid.Column="0" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="1"></Button>
-            <Button Name="btn11" Margin="5,5,5,5"  Grid.Column="1" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="11"></Button>
-            <Button Name="btn21" Margin="5,5,5,5"  Grid.Column="2" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="21"></Button>
-            <Button Name="btn31" Margin="5,5,10,5" Grid.Column="3" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="31"></Button>
+			<Button Name="btn00" Margin="10,10,5,5" Grid.Column="0" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="00"></Button>
+			<Button Name="btn10" Margin="5,10,5,5" Grid.Column="1" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="10"></Button>
+			<Button Name="btn20" Margin="5,10,5,5" Grid.Column="2" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="20"></Button>
+			<Button Name="btn30" Margin="5,10,10,5" Grid.Column="3" Grid.Row="0" Click="Button_Click" Style="{StaticResource XnO}" Tag="30"></Button>
 
-            <Button Name="btn02" Margin="10,5,5,5" Grid.Column="0" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="02"></Button>
-            <Button Name="btn12" Margin="5,5,5,5"  Grid.Column="1" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="12"></Button>
-            <Button Name="btn22" Margin="5,5,5,5"  Grid.Column="2" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="22"></Button>
-            <Button Name="btn32" Margin="5,5,10,5" Grid.Column="3" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="32"></Button>
+			<Button Name="btn01" Margin="10,5,5,5" Grid.Column="0" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="01"></Button>
+			<Button Name="btn11" Margin="5,5,5,5"  Grid.Column="1" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="11"></Button>
+			<Button Name="btn21" Margin="5,5,5,5"  Grid.Column="2" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="21"></Button>
+			<Button Name="btn31" Margin="5,5,10,5" Grid.Column="3" Grid.Row="1" Click="Button_Click" Style="{StaticResource XnO}" Tag="31"></Button>
 
-            <Button Name="btn03" Margin="10,5,5,10" Grid.Column="0" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="3"></Button>
-            <Button Name="btn13" Margin="5,5,5,10"  Grid.Column="1" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="13"></Button>
-            <Button Name="btn23" Margin="5,5,5,10"  Grid.Column="2" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="23"></Button>
-            <Button Name="btn33" Margin="5,5,10,10" Grid.Column="3" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="33"></Button>
-        </Grid>
-        <Button  Name="btnNewGame" Height="20" Width="450" Content="Sākt spēli no jauna" Background="LightCyan" Click="btnNewGame_Click"></Button>
+			<Button Name="btn02" Margin="10,5,5,5" Grid.Column="0" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="02"></Button>
+			<Button Name="btn12" Margin="5,5,5,5"  Grid.Column="1" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="12"></Button>
+			<Button Name="btn22" Margin="5,5,5,5"  Grid.Column="2" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="22"></Button>
+			<Button Name="btn32" Margin="5,5,10,5" Grid.Column="3" Grid.Row="2" Click="Button_Click" Style="{StaticResource XnO}" Tag="32"></Button>
 
-        <StackPanel x:Name="stackPanel" Orientation="Horizontal" Height="30">
-            <RadioButton Name="CvsC" Margin="5,5,5,5" Height="20" GroupName="Spēle" Content="X-Cilvēks vs O-Cilvēks" IsChecked="True" />
-            <RadioButton Name="CvsD" Margin="5,5,5,5" Height="20" GroupName="Spēle" Content="X-Cilvēks vs O-Dators" />
-            <RadioButton Name="DvsC" Margin="5,5,5,5" Height="20" GroupName="Spēle" Content="X-Dators vs O-Cilvēks" />
-        </StackPanel>
-    </StackPanel>
+			<Button Name="btn03" Margin="10,5,5,10" Grid.Column="0" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="03"></Button>
+			<Button Name="btn13" Margin="5,5,5,10"  Grid.Column="1" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="13"></Button>
+			<Button Name="btn23" Margin="5,5,5,10"  Grid.Column="2" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="23"></Button>
+			<Button Name="btn33" Margin="5,5,10,10" Grid.Column="3" Grid.Row="3" Click="Button_Click" Style="{StaticResource XnO}" Tag="33"></Button>
+		</Grid>
+		<Button  Name="btnNewGame" Height="20" Width="450" Content="Sākt spēli no jauna" Background="LightCyan" Click="btnNewGame_Click"></Button>
+
+		<StackPanel x:Name="stackPanel" Orientation="Horizontal" Height="30">
+			<RadioButton Name="CvsC" Margin="5,5,5,5" Height="20" GroupName="Spēle" Content="X-Cilvēks vs O-Cilvēks" IsChecked="True" />
+			<RadioButton Name="CvsD" Margin="5,5,5,5" Height="20" GroupName="Spēle" Content="X-Cilvēks vs O-Dators" />
+			<RadioButton Name="DvsC" Margin="5,5,5,5" Height="20" GroupName="Spēle" Content="X-Dators vs O-Cilvēks" />
+		</StackPanel>
+	</StackPanel>
 </Window>

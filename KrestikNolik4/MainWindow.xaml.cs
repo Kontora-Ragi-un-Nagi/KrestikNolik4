@@ -90,83 +90,172 @@ namespace KrestikNolik4
                     for (int j = 0; j <= 3; j++)
                     { if (Field[i, j].PoleStatus==10) { Field[i, j].Btn.Background = _Bingo; } }
             }
-            else if (O_Count>X_Count )
+            else 
             { _Bingo = new ImageBrush(new BitmapImage(new Uri(PathImage + "Nolik_U.png", UriKind.Relative)));
                 for (int i = 0; i <= 3; i++)
                     for (int j = 0; j <= 3; j++)
                     { if (Field[i, j].PoleStatus == 1) { Field[i, j].Btn.Background = _Bingo; } }
             }
            
-        } //void UzvarasLinija()
+        } 
         #endregion // Uzvaras linija
+
+
+        #region Punktu_Skaititajs
+        private void Punktu_Skaititajs( int Status, ref bool Str_X, ref bool Str_O, ref int TekSum_X, ref int TekSum_O,
+                                                                               ref int GlobalSum_X, ref int GlobalSum_O)
+        {
+            if (Status == 1) // это 0
+            {
+                if (!Str_O) { Str_O = true; TekSum_O = 0; } // пошли 0
+                if (Str_O) { TekSum_O++; } // считаем длину 0
+                if (Str_X) { Str_X = false; if (TekSum_X > 1) { GlobalSum_X = GlobalSum_X + TekSum_X * 10; } TekSum_X = 0; } // проверяем длину Х
+            }
+            if (Status == 10) // это X
+            {
+                if (!Str_X) { Str_X = true; TekSum_X = 0; } // пошли X
+                if (Str_X) { TekSum_X++; } // считаем длину X
+                if (Str_O) { Str_O = false; if (TekSum_O > 1) { GlobalSum_O = GlobalSum_O + TekSum_O * 10; } TekSum_O = 0; } // проверяем длину 0
+            }
+
+        } // Punktu_Skaititajs
+
+        #endregion // Punktu_Skaititajs
 
         #region Speles skaits
         private void Speles_skaits()
         {
-            int Global_X = 0;
-            int Global_O = 0;
+            X_Count = 0;
+            O_Count = 0;
 
-            int Sum_X = 0;         int  Sum_O = 0;
+            int Sum_X = 0; int Sum_O = 0;
             bool Polosa_X = false; bool Polosa_O = false;
 
             // по строкам
             for (int i = 0; i < 3; i++)
+            {
+                Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+
                 for (int j = 0; j <= 3; j++)
                 {
-                    if (Field[i, j].PoleStatus == 1) // это 0
-                    {
-                        if (!Polosa_O) { Polosa_O=true; Sum_O = 0; } // пошли 0
-                        if (Polosa_O) { Sum_O++;} // считаем длину 0
-                        if (Polosa_X) { Polosa_X=false; if (Sum_X>1) { Global_X =Global_X+Sum_X*10; } Sum_X=0; } // проверяем длину Х
-                    }
-                   if (Field[i, j].PoleStatus == 10) // это X
-                    {
-                        if (!Polosa_X) { Polosa_X=true; Sum_X = 0; } // пошли X
-                        if (Polosa_X) { Sum_X++;} // считаем длину X
-                        if (Polosa_O) { Polosa_O=false; if (Sum_O>1) { Global_O =Global_O+Sum_O*10; } Sum_O=0; } // проверяем длину 0
-                    }
-                    
+                  Punktu_Skaititajs(Field[i, j].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
                 }
-           
+                if ((Polosa_X)&&(Sum_X > 1))   { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+                if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+            }
             // по столбцам
             for (int i = 0; i < 3; i++)
-             for (int j = 0; j <= 3; j++)
+            {
+                Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+                for (int j = 0; j <= 3; j++)
                 {
-                    if (Field[j, i].PoleStatus == 1) // это 0
-                    {
-                        if (!Polosa_O) { Polosa_O=true; Sum_O = 0; } // пошли 0
-                        if (Polosa_O) { Sum_O++;} // считаем длину 0
-                        if (Polosa_X) { Polosa_X=false; if (Sum_X>1) { Global_X =Global_X+Sum_X*10; } Sum_X=0; } // проверяем длину Х
-                    }
-                   if (Field[j, i].PoleStatus == 10) // это X
-                    {
-                        if (!Polosa_X) { Polosa_X=true; Sum_X = 0; } // пошли X
-                        if (Polosa_X) { Sum_X++;} // считаем длину X
-                        if (Polosa_O) { Polosa_O=false; if (Sum_O>1) { Global_O =Global_O+Sum_O*10; } Sum_O=0; } // проверяем длину 0
-                    }
-                    
+                  Punktu_Skaititajs(Field[j, i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
                 }
+                if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+                if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
 
-             // по диагонали слева направо
+            }
+            // по диагонали слева направо
 
-            for (int i = 0; i < 3; i++)
-      //       for (int j = 0; j <= 3; j++)
-                {
-                    if (Field[i, i].PoleStatus == 1) // это 0
-                    {
-                        if (!Polosa_O) { Polosa_O=true; Sum_O = 0; } // пошли 0
-                        if (Polosa_O) { Sum_O++;} // считаем длину 0
-                        if (Polosa_X) { Polosa_X=false; if (Sum_X>1) { Global_X =Global_X+Sum_X*10; } Sum_X=0; } // проверяем длину Х
-                    }
-                   if (Field[i, i].PoleStatus == 10) // это X
-                    {
-                        if (!Polosa_X) { Polosa_X=true; Sum_X = 0; } // пошли X
-                        if (Polosa_X) { Sum_X++;} // считаем длину X
-                        if (Polosa_O) { Polosa_O=false; if (Sum_O>1) { Global_O =Global_O+Sum_O*10; } Sum_O=0; } // проверяем длину 0
-                    }
-                    
-                }
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
 
+            for (int i = 0; i <= 3; i++) // это большая диагональ слева направо 
+            {
+              Punktu_Skaititajs(Field[i, i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+                Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+
+            for (int i = 0; i <= 2; i++) // это средняя диагональ слева направо снизу
+            {
+                 Punktu_Skaititajs(Field[i+1, i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+
+            for (int i = 0; i <= 2; i++) // это средняя диагональ слева направо сверху
+            {
+              Punktu_Skaititajs(Field[i, i+1].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+
+            for (int i = 0; i < 2; i++) // это маленькая диагональ слева направо снизу
+            {
+               Punktu_Skaititajs(Field[i+2, i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+
+            for (int i = 0; i <2; i++) // это маленькая диагональ слева направо сверху
+            {
+                Punktu_Skaititajs(Field[i, i+2].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            // по диагонали справа налево 
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+            for (int i = 0; i <= 3; i++) // это большая диагональ справа налево 
+            {
+              Punktu_Skaititajs(Field[i, 3-i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+            for (int i = 1; i <= 3; i++) // это средняя диагональ снизу справа налево 
+            {
+              Punktu_Skaititajs(Field[i, 4 - i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+            for (int i = 0; i <= 2; i++) // это средняя диагональ сверху справа налево 
+            {
+              Punktu_Skaititajs(Field[i, 2 - i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+            for (int i = 2; i <= 3; i++) // это маленькая диагональ снизу справа налево 
+            {
+             Punktu_Skaititajs(Field[i, 5 - i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            Sum_X = 0; Sum_O = 0; Polosa_X = false; Polosa_O = false; // поиск цепочки
+            for (int i = 0; i <2; i++) // это маленькая диагональ сверху справа налево 
+            {
+              Punktu_Skaititajs(Field[i, 1 - i].PoleStatus, ref Polosa_X, ref Polosa_O, ref Sum_X, ref Sum_O, ref X_Count, ref O_Count);
+            }
+            if ((Polosa_X) && (Sum_X > 1)) { X_Count = X_Count + Sum_X * 10; }  // дописываем баллы Х
+            if ((Polosa_O) && (Sum_O > 1)) { O_Count = O_Count + Sum_O * 10; }  // дописываем баллы 0
+
+
+            X_Tablo.Text = X_Count.ToString();
+            O_Tablo.Text = O_Count.ToString();
 
         }
         #endregion Speles skaits
@@ -252,6 +341,7 @@ namespace KrestikNolik4
                         { Field[i, j].Btn.Background = _nolik; Field[i, j].PoleStatus = 1; }
                         else // нечетный ход
                         { Field[i, j].Btn.Background = _krestik; Field[i, j].PoleStatus = 10; }
+                       
 
                         if (HodCount==16)
                         {
@@ -262,7 +352,7 @@ namespace KrestikNolik4
                                 tbTablo.Background = _FonPobedi;
                                 if (X_Count > O_Count) { tbTablo.Text = "UZVARA! Krustiņi uzvarēja!"; }
                                 else { tbTablo.Text = "UZVARA! Nulles uzvarēja!"; }
-                                    
+                                UzvarasLinija();
                             }
                             else 
                             {
@@ -275,6 +365,7 @@ namespace KrestikNolik4
                         if ((DatorX | DatorO) && (HodCount < 16))
                         {
                             Dator_hod();
+                            Speles_skaits();
                             if (HodCount == 16)
                             {
                                 GameOver = true;
@@ -284,7 +375,7 @@ namespace KrestikNolik4
                                     tbTablo.Background = _FonPobedi;
                                     if (X_Count > O_Count) { tbTablo.Text = "UZVARA! Krustiņi uzvarēja!"; }
                                     else { tbTablo.Text = "UZVARA! Nulles uzvarēja!"; }
-
+                                    UzvarasLinija();
                                 }
                                 else
                                 {
@@ -305,6 +396,7 @@ namespace KrestikNolik4
                         tbTablo.Background = _FonSnacala;
                         tbTablo.Text = "Ierosinu sākt spēli no jauna !";
                     }
+                    Speles_skaits();
                 }
                // btn.IsHitTestVisible = false;
             }
@@ -526,6 +618,10 @@ namespace KrestikNolik4
             GameOver = false;
             HodCount = 0;
             X_Count = 0; O_Count = 0;
+
+            X_Tablo.Text = X_Count.ToString();
+            O_Tablo.Text = O_Count.ToString();
+
 
             DatorX = (DvsC.IsChecked == true);
             DatorO = (CvsD.IsChecked == true);
