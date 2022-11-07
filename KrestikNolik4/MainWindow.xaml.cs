@@ -106,17 +106,68 @@ namespace KrestikNolik4
             int Global_X = 0;
             int Global_O = 0;
 
-            int Sum_X = 0; int Sum_O = 0;
+            int Sum_X = 0;         int  Sum_O = 0;
+            bool Polosa_X = false; bool Polosa_O = false;
 
             // по строкам
             for (int i = 0; i < 3; i++)
                 for (int j = 0; j <= 3; j++)
                 {
-                    if (Field[i, j].PoleStatus == 1) { }
+                    if (Field[i, j].PoleStatus == 1) // это 0
+                    {
+                        if (!Polosa_O) { Polosa_O=true; Sum_O = 0; } // пошли 0
+                        if (Polosa_O) { Sum_O++;} // считаем длину 0
+                        if (Polosa_X) { Polosa_X=false; if (Sum_X>1) { Global_X =Global_X+Sum_X*10; } Sum_X=0; } // проверяем длину Х
+                    }
+                   if (Field[i, j].PoleStatus == 10) // это X
+                    {
+                        if (!Polosa_X) { Polosa_X=true; Sum_X = 0; } // пошли X
+                        if (Polosa_X) { Sum_X++;} // считаем длину X
+                        if (Polosa_O) { Polosa_O=false; if (Sum_O>1) { Global_O =Global_O+Sum_O*10; } Sum_O=0; } // проверяем длину 0
+                    }
                     
                 }
            
             // по столбцам
+            for (int i = 0; i < 3; i++)
+             for (int j = 0; j <= 3; j++)
+                {
+                    if (Field[j, i].PoleStatus == 1) // это 0
+                    {
+                        if (!Polosa_O) { Polosa_O=true; Sum_O = 0; } // пошли 0
+                        if (Polosa_O) { Sum_O++;} // считаем длину 0
+                        if (Polosa_X) { Polosa_X=false; if (Sum_X>1) { Global_X =Global_X+Sum_X*10; } Sum_X=0; } // проверяем длину Х
+                    }
+                   if (Field[j, i].PoleStatus == 10) // это X
+                    {
+                        if (!Polosa_X) { Polosa_X=true; Sum_X = 0; } // пошли X
+                        if (Polosa_X) { Sum_X++;} // считаем длину X
+                        if (Polosa_O) { Polosa_O=false; if (Sum_O>1) { Global_O =Global_O+Sum_O*10; } Sum_O=0; } // проверяем длину 0
+                    }
+                    
+                }
+
+             // по диагонали слева направо
+
+            for (int i = 0; i < 3; i++)
+      //       for (int j = 0; j <= 3; j++)
+                {
+                    if (Field[i, i].PoleStatus == 1) // это 0
+                    {
+                        if (!Polosa_O) { Polosa_O=true; Sum_O = 0; } // пошли 0
+                        if (Polosa_O) { Sum_O++;} // считаем длину 0
+                        if (Polosa_X) { Polosa_X=false; if (Sum_X>1) { Global_X =Global_X+Sum_X*10; } Sum_X=0; } // проверяем длину Х
+                    }
+                   if (Field[i, i].PoleStatus == 10) // это X
+                    {
+                        if (!Polosa_X) { Polosa_X=true; Sum_X = 0; } // пошли X
+                        if (Polosa_X) { Sum_X++;} // считаем длину X
+                        if (Polosa_O) { Polosa_O=false; if (Sum_O>1) { Global_O =Global_O+Sum_O*10; } Sum_O=0; } // проверяем длину 0
+                    }
+                    
+                }
+
+
         }
         #endregion Speles skaits
 
