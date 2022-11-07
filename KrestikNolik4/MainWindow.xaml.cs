@@ -100,6 +100,26 @@ namespace KrestikNolik4
         } //void UzvarasLinija()
         #endregion // Uzvaras linija
 
+        #region Speles skaits
+        private void Speles_skaits()
+        {
+            int Global_X = 0;
+            int Global_O = 0;
+
+            int Sum_X = 0; int Sum_O = 0;
+
+            // по строкам
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j <= 3; j++)
+                {
+                    if (Field[i, j].PoleStatus == 1) { }
+                    
+                }
+           
+            // по столбцам
+        }
+        #endregion Speles skaits
+
         #region Ir uzvara
         private bool IrUzvara()
         {
